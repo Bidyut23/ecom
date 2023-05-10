@@ -1,4 +1,5 @@
-# Welcome to Thapa Technical React Ecommerce Webstie Series 
+# E-Commerce
+## This is the E-Commerce project from web development by Bidyut Saikia
 
 ## Follow the 3 Steps and your good to go. 
 
