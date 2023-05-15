@@ -5,20 +5,8 @@ const filterReducer = (state, action) => {
         return state;
       }
 
-      let priceArr = action.payload.map((curElem) => curElem.price);
-      console.log(
-        "🚀 ~ file: filterReducer.js ~ line 5 ~ filterReducer ~ priceArr",
-        priceArr
-      );
-
-
-      
-
-      let maxPrice = Math.max(...priceArr);
-      console.log(
-        "🚀 ~ file: filterReducer.js ~ line 23 ~ filterReducer ~ maxPrice",
-        maxPrice
-      );
+      const priceArr = action.payload.map((curElem) => curElem.price);
+      const maxPrice = Math.max(...priceArr);
 
       return {
         ...state,
@@ -40,19 +28,14 @@ const filterReducer = (state, action) => {
       };
 
     case "GET_SORT_VALUE":
-      // let userSortValue = document.getElementById("sort");
-      // let sort_value = userSortValue.options[userSortValue.selectedIndex].value;
       return {
         ...state,
         sorting_value: action.payload,
       };
 
     case "SORTING_PRODUCTS":
-      let newSortData;
-      // let tempSortProduct = [...action.payload];
-
       const { filter_products, sorting_value } = state;
-      let tempSortProduct = [...filter_products];
+      const tempSortProduct = [...filter_products];
 
       const sortingProducts = (a, b) => {
         if (sorting_value === "lowest") {
@@ -72,7 +55,7 @@ const filterReducer = (state, action) => {
         }
       };
 
-      newSortData = tempSortProduct.sort(sortingProducts);
+      const newSortData = tempSortProduct.sort(sortingProducts);
 
       return {
         ...state,
@@ -91,7 +74,7 @@ const filterReducer = (state, action) => {
       };
 
     case "FILTER_PRODUCTS":
-      let { all_products } = state;
+      const { all_products } = state;
       let tempFilterProduct = [...all_products];
 
       const { text, category, company, color, price } = state.filters;
@@ -120,15 +103,12 @@ const filterReducer = (state, action) => {
         );
       }
 
-      if (price === 0) {
-        tempFilterProduct = tempFilterProduct.filter(
-          (curElem) => curElem.price === price
-        );
-      } else {
+      if (price !== 0) {
         tempFilterProduct = tempFilterProduct.filter(
           (curElem) => curElem.price <= price
         );
       }
+
       return {
         ...state,
         filter_products: tempFilterProduct,
@@ -144,8 +124,8 @@ const filterReducer = (state, action) => {
           company: "all",
           color: "all",
           maxPrice: 0,
-          price: state.filters.maxPrice,
-          minPrice: state.filters.maxPrice,
+          price: 0,
+          minPrice: 0,
         },
       };
 

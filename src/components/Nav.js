@@ -10,7 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
-  const { loginWithRedirect,logout,isAuthenticated,user } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
   
   
   const Nav = styled.nav`
@@ -209,16 +209,16 @@ const Nav = () => {
           {isAuthenticated && <p>{user.name}</p>}
             {isAuthenticated ? (
               <>
-                <Button onClick={logout}>Log Out</Button>
+                <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}></Button>
               </>
             ) : (
-              <Button onClick={loginWithRedirect}>Log In</Button>
+              <Button onClick={() => loginWithRedirect()}>Log In</Button>
             )}
           </li>
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />
-              <span className="cart-total--item"> 10 </span>
+              <span className="cart-total--item">{total_item}</span>
             </NavLink>
           </li>
         </ul>

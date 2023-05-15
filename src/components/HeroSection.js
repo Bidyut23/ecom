@@ -11,7 +11,7 @@ const HeroSection = ({ myData }) => {
         <div className="grid grid-two-column">
           <div className="hero-section-data">
             <p className="intro-data">Welcome to </p>
-            <h1> {name} </h1>
+            <h1> Bidyut Store </h1>
             <p>
             Where we provide you with an exceptional shopping experience from the comfort of your own home. Our goal is to offer you a vast selection of high-quality products at competitive prices, delivered right to your doorstep. We believe in providing our customers with the best customer service and hassle-free shopping experience. Thank you for choosing us and we look forward to serving you! 
               </p>

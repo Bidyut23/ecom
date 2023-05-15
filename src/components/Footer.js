@@ -27,7 +27,7 @@ const Footer = () => {
         <footer>
           <div className="container grid grid-four-column">
             <div className="footer-about">
-              <h3>Thapa Technical</h3>
+              <h3>Bidyut E-Commerce</h3>
               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
             </div>
             <div className="footer-subscribe">
@@ -49,7 +49,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <a
-                    href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
+                    href="https://l.instagram.com/?u=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fbidyut-saikia-&e=AT1dsQlerD1YcLIeDnld1VU9lbO-1z_ZPzJdgUxuNs3dmaDX44XhkVcTanSFnB0GBYzuh7SO9YNkucJyV8_0gzMR042Rfj6T2fgP8A"
                     target="_blank">
                     <FaYoutube className="icons" />
                   </a>
@@ -66,7 +66,7 @@ const Footer = () => {
             <hr />
             <div className="container grid grid-two-column ">
               <p>
-                @{new Date().getFullYear()} ThapaTechnical. All Rights Reserved
+                @{new Date().getFullYear()} Bidyut Saikia. All Rights Reserved
               </p>
               <div>
                 <p>PRIVACY POLICY</p>

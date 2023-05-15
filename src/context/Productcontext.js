@@ -1,3 +1,5 @@
+// 
+
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import reducer from '../reducer/ProductReducer';
@@ -5,16 +7,12 @@ import reducer from '../reducer/ProductReducer';
 const AppContext = createContext();
 
 const API = "https://ecom.loca.lt/products";
-// getAllProducts(){;
-//   return axios.get(AppContext);
-// };
 
 const initialState = {
   isLoading: false,
   isError: false,
   products: [],
   featureProducts: [],
-
   isSingleLoading: false,
   singleProduct: {},
 };
@@ -22,14 +20,14 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getProducts = async (url) => {
+  const getProducts = async () => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.get(url);
-      const products = await res.data;
+      const res = await axios.get(API);
+      const products = res.data;
       dispatch({ type: 'SET_API_DATA', payload: products });
     } catch (error) {
-      dispatch({ type: 'API_ERROR' });
+      dispatch({ type: 'SET_ERROR' });
     }
   };
 
@@ -37,20 +35,19 @@ const AppProvider = ({ children }) => {
     try {
       dispatch({ type: 'SET_SINGLE_LOADING' });
       const res = await axios.get(url);
-      const singleProduct = await res.data;
+      const singleProduct = res.data;
       dispatch({ type: 'SET_SINGLE_PRODUCT', payload: singleProduct });
     } catch (error) {
-      dispatch({ type: 'SET_SINGLE_ERROR' });
+      dispatch({ type: 'SET_ERROR' });
     }
   };
 
   useEffect(() => {
-    getProducts(API);
+    getProducts();
   }, []);
 
   return (
     <AppContext.Provider value={{ ...state, getSingleProduct }}>
-      {/* only render the children if the state is not loading */}
       {!state.isLoading && children}
     </AppContext.Provider>
   );
@@ -60,4 +57,4 @@ const useProductContext = () => {
   return useContext(AppContext);
 };
 
-export { AppProvider, AppContext, useProductContext };
+export { AppProvider, useProductContext };
