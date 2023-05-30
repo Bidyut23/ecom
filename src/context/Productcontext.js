@@ -1,12 +1,10 @@
-// 
-
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import reducer from '../reducer/ProductReducer';
 
 const AppContext = createContext();
 
-const API = "https://ecom.loca.lt/products";
+const API = 'https://ecom.loca.lt/products';
 
 const initialState = {
   isLoading: false,
@@ -57,4 +55,4 @@ const useProductContext = () => {
   return useContext(AppContext);
 };
 
-export { AppProvider, useProductContext };
+export { AppProvider, useProductContext };

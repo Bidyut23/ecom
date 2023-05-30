@@ -206,14 +206,9 @@ const Nav = () => {
             </NavLink>
           </li>
           <li>
-          {isAuthenticated && <p>{user.name}</p>}
-            {isAuthenticated ? (
-              <>
-                <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}></Button>
-              </>
-            ) : (
-              <Button onClick={() => loginWithRedirect()}>Log In</Button>
-            )}
+          <NavLink to="/LogIn" className="navbar-link "
+              onClick={() => setMenuIcon(false)}>
+              Login</NavLink>
           </li>
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">

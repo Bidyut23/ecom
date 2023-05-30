@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useProductContext } from "./context/Productcontext";
@@ -10,35 +10,55 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "./components/Star";
 import AddToCart from "./components/AddToCart";
+import axios from "axios";
 
-const API = "";
+const API = "https://ecom.loca.lt/products";
 
 const SingleProduct = () => {
-  const { getSingleProduct, isSingleLoading, singleProduct } =
-    useProductContext();
-
+  const { getSingleProduct, isSingleLoading, singleProduct, dispatch } = useProductContext();
   const { id } = useParams();
 
   const {
     id: alias,
-    name,
-    company,
-    price,
-    description,
+    product_name: name,
+    product_price: price,
+    product_desc: description,
+    product_quantity,
     category,
-    stock,
+    stock = true,
+    live,
     stars,
     reviews,
-    image,
+    product_imageName: image,
   } = singleProduct;
 
   useEffect(() => {
-    getSingleProduct(`${API}?id=${id}`);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API}?id=${id}`);
+        const data = response.data;
+        getSingleProduct(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [getSingleProduct, id]);
 
   if (isSingleLoading) {
     return <div className="page_loading">Loading.....</div>;
   }
+
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(API);
+      const products = response.data;
+      console.log(products);
+    } catch (error) {
+      dispatch({ type: "SET_ERROR" });
+    }
+  };
 
   return (
     <Wrapper>
@@ -50,21 +70,19 @@ const SingleProduct = () => {
             <MyImage imgs={image} />
           </div>
 
-          {/* product dAta  */}
+          {/* product data  */}
           <div className="product-data">
             <h2>{name}</h2>
             <Star stars={stars} reviews={reviews} />
 
             <p className="product-data-price">
-              MRP:
-              <del>
-                <FormatPrice price={price + 250000} />
-              </del>
+              MRP: <del><FormatPrice price={price + 250000} /></del>
             </p>
             <p className="product-data-price product-data-real-price">
               Deal of the Day: <FormatPrice price={price} />
             </p>
             <p>{description}</p>
+
             <div className="product-data-warranty">
               <div className="product-warranty-data">
                 <TbTruckDelivery className="warranty-icon" />
@@ -78,25 +96,33 @@ const SingleProduct = () => {
 
               <div className="product-warranty-data">
                 <TbTruckDelivery className="warranty-icon" />
-                <p>BS Delivered </p>
+                <p>BS Delivered</p>
               </div>
 
               <div className="product-warranty-data">
                 <MdSecurity className="warranty-icon" />
-                <p>2 Year Warranty </p>
+                <p>1 Year Warranty</p>
               </div>
             </div>
 
             <div className="product-data-info">
               <p>
-                Available:
-                <span> {stock > 0 ? "In Stock" : "Not Available"}</span>
+                Available: <span>{stock > 0 ? "In Stock" : "Not Available"}</span>
               </p>
               <p>
-                ID : <span> {id} </span>
+                ID: <span>{id}</span>
               </p>
               <p>
-                Brand :<span> {company} </span>
+                Alias: <span>{alias}</span>
+              </p>
+              <p>
+                Product Quantity: <span>{product_quantity}</span>
+              </p>
+              <p>
+                Category: <span>{category}</span>
+              </p>
+              <p>
+                Live: <span>{live ? "Yes" : "No"}</span>
               </p>
             </div>
             <hr />
@@ -107,6 +133,7 @@ const SingleProduct = () => {
     </Wrapper>
   );
 };
+
 
 const Wrapper = styled.section`
   .container {
